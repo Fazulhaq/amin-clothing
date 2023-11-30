@@ -11,22 +11,38 @@ import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+
+  const signOutOnClickHandler = () => {
+    signOutUser();
+    setIsCartOpen(false);
+  }
+  const signInOnClickHandler = () => {
+    setIsCartOpen(false);
+  }
+  const shopOnclickHandler = () => {
+    setIsCartOpen(false);
+  }
+  const homeOnClickHandler = () => {
+    setIsCartOpen(false);
+  }
 
   return (
     <Fragment>
       <div className="navigation">
-        <Link className="logo-container" to="/">
+        <Link className="logo-container" to="/" onClick={homeOnClickHandler}>
             <CrownLogo className="logo" />
         </Link>
         <div className="nav-links-container">
-            <Link className="nav-link" to="/shop">
+            <Link className="nav-link" to="/shop" onClick={shopOnclickHandler}>
             SHOP
             </Link>
             {currentUser ? (
-                <span className="nav-link" onClick={signOutUser}>SIGN OUT</span>
+              <span className="nav-link" onClick={signOutOnClickHandler}>
+                SIGN OUT
+              </span>
               ):(
-              <Link className="nav-link" to="/auth">
+              <Link className="nav-link" to="/auth" onClick={signInOnClickHandler}>
                 SIGN IN
               </Link>
             )}
