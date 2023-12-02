@@ -17,24 +17,18 @@ const Navigation = () => {
     signOutUser();
     setIsCartOpen(false);
   }
-  const signInOnClickHandler = () => {
-    setIsCartOpen(false);
-  }
-  const shopOnclickHandler = () => {
-    setIsCartOpen(false);
-  }
-  const homeOnClickHandler = () => {
+  const disableDropDownHandler = () => {
     setIsCartOpen(false);
   }
 
   return (
     <Fragment>
       <div className="navigation">
-        <Link className="logo-container" to="/" onClick={homeOnClickHandler}>
+        <Link className="logo-container" to="/" onClick={disableDropDownHandler}>
             <CrownLogo className="logo" />
         </Link>
         <div className="nav-links-container">
-            <Link className="nav-link" to="/shop" onClick={shopOnclickHandler}>
+            <Link className="nav-link" to="/shop" onClick={disableDropDownHandler}>
             SHOP
             </Link>
             {currentUser ? (
@@ -42,7 +36,7 @@ const Navigation = () => {
                 SIGN OUT
               </span>
               ):(
-              <Link className="nav-link" to="/auth" onClick={signInOnClickHandler}>
+              <Link className="nav-link" to="/auth" onClick={disableDropDownHandler}>
                 SIGN IN
               </Link>
             )}
