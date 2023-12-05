@@ -16,13 +16,7 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) => (
 const Button = ({ children, buttonType, ...otherProps }) => {
     const CustomButton = getButton(buttonType);
     return (
-        <CustomButton 
-        className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`} 
-        {...otherProps}>
-
-            { children }
-
-        </CustomButton>
+        <CustomButton {...otherProps}> { children } </CustomButton>
     );
 }
 
