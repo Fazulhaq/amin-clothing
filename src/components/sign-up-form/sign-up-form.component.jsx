@@ -3,7 +3,7 @@ import { createAuthUserWithEmailAndPassword, createUserDocumentFrom } from "../.
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-import "./sign-up-form.styles.scss";
+import { SignUpConainer } from "./sign-up-form.styles";
 
 const defaultFormFields = {
     displayName: "",
@@ -32,9 +32,9 @@ const SignUpForm = () => {
             await createUserDocumentFrom(user, { displayName });
             resetFields();
         }catch(error){
-            if(error.code == "auth/weak-password"){
+            if(error.code === "auth/weak-password"){
                 alert("Your password is weak, please provide password more than 6 character.");
-            } else if(error.code == "auth/email-already-in-use"){
+            } else if(error.code === "auth/email-already-in-use"){
                 alert("Cannot create user, email already in use");
             }else{
                 console.log("user creation encountered an error", error);
@@ -47,7 +47,7 @@ const SignUpForm = () => {
         setFormFields({...formFields, [name]: value});
     }
     return (
-        <div className="sign-up-container">
+        <SignUpConainer>
             <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -90,7 +90,7 @@ const SignUpForm = () => {
 
                 <Button type="submit">Sign Up</Button>
             </form>
-        </div>
+        </SignUpConainer>
     );
 }
 
