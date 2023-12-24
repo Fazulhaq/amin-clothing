@@ -1,24 +1,26 @@
+import { Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { Fragment, useContext } from "react";
-import { ReactComponent as CrownLogo} from "../../assets/crown.svg";
-import { CartContext } from "../../contexts/cart.context";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
-import CartIcon from "../../components/cart-icon/cart-icon.component";
+import { ReactComponent as CrownLogo } from "../../assets/crown.svg";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation.styles";
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import { setIsCartOpen } from "../../store/cart/cart.action";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { LogoContainer, NavLink, NavLinks, NavigationContainer } from "./navigation.styles";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutOnClickHandler = () => {
     signOutUser();
-    setIsCartOpen(false);
+    dispatch(setIsCartOpen(false));
   }
   const disableDropDownHandler = () => {
-    setIsCartOpen(false);
+    dispatch(setIsCartOpen(false));
   }
 
   return (
