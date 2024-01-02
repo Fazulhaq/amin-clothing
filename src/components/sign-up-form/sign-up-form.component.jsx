@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFrom } from "../../utils/firebase/firebase.utils";
-import FormInput from "../form-input/form-input.component";
+import { useDispatch } from "react-redux";
 import Button from "../button/button.component";
+import FormInput from "../form-input/form-input.component";
 
+import { signUpStart } from "../../store/user/user.action";
 import { SignUpConainer } from "./sign-up-form.styles";
 
 const defaultFormFields = {
@@ -16,6 +17,7 @@ const SignUpForm = () => {
 
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {displayName, email, password, confirmPassword} = formFields;
+    const dispatch = useDispatch();
 
     const resetFields = () => {
         setFormFields(defaultFormFields);
@@ -28,8 +30,7 @@ const SignUpForm = () => {
             return;
         }
         try{
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            await createUserDocumentFrom(user, { displayName });
+            dispatch(signUpStart(email, password, displayName));
             resetFields();
         }catch(error){
             if(error.code === "auth/weak-password"){
