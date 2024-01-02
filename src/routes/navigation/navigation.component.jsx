@@ -6,8 +6,8 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import { setIsCartOpen } from "../../store/cart/cart.action";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { signOutStart } from "../../store/user/user.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { LogoContainer, NavLink, NavLinks, NavigationContainer } from "./navigation.styles";
 
 const Navigation = () => {
@@ -16,7 +16,7 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutOnClickHandler = () => {
-    signOutUser();
+    dispatch(signOutStart());
     dispatch(setIsCartOpen(false));
   }
   const disableDropDownHandler = () => {
