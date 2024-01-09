@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
+  User,
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
@@ -9,6 +10,7 @@ import {
   signOut,
 } from "firebase/auth";
 import {
+  QueryDocumentSnapshot,
   collection,
   doc,
   getDoc,
@@ -69,10 +71,20 @@ export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Category);
 };
 
+export type AdditionalInformation = {
+  displayName?: string;
+}
+
+export type UserData = {
+  createdAt: Date;
+  displayName: string;
+  email: string;
+}
+
 export const createUserDocumentFrom = async (
-  userAuth,
-  additionalInformation = {}
-) => {
+  userAuth: User,
+  additionalInformation = {} as AdditionalInformation,
+): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!userAuth) return;
   const userDocumentRef = doc(db, "users", userAuth.uid);
   const userDataSnapshot = await getDoc(userDocumentRef);
@@ -88,10 +100,10 @@ export const createUserDocumentFrom = async (
         ...additionalInformation,
       });
     } catch (error) {
-      console.log("Error creating the user.", error.message);
+      console.log("Error creating the user.", error);
     }
   }
-  return userDataSnapshot;
+  return userDataSnapshot as QueryDocumentSnapshot<UserData>;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
