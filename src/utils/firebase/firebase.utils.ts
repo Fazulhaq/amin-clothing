@@ -18,6 +18,7 @@ import {
   setDoc,
   writeBatch,
 } from "firebase/firestore";
+import { Category } from "../../store/categories/category.types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDvTKpswkhW70g93-4C7WEueput3H5wk7I",
@@ -60,12 +61,12 @@ export const addCollectionAndDocuments = async <T extends ObjectToAdd> (
   console.log("Done");
 };
 
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesAndDocuments = async (): Promise<Category[]> => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
 
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data() as Category);
 };
 
 export const createUserDocumentFrom = async (
