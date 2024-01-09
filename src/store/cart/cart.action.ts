@@ -53,9 +53,9 @@ export const addItemToCart = (cartItems: CartItem[], productToAdd: CategoryItem)
 };
 export const removeItemFromCart = (cartItems: CartItem[], cartItemToRemove: CartItem) => {
   const newCartItems = removeCartItem(cartItems, cartItemToRemove);
-  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+  return setCartItems(newCartItems);
 };
 export const clearItemFromCart = (cartItems: CartItem[], cartItemToClear: CartItem) => {
   const newCartItems = clearCartItem(cartItems, cartItemToClear);
-  return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
+  return setCartItems(newCartItems);
 };
