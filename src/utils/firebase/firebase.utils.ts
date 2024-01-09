@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
+  NextOrObserver,
   User,
   createUserWithEmailAndPassword,
   getAuth,
@@ -106,22 +107,22 @@ export const createUserDocumentFrom = async (
   return userDataSnapshot as QueryDocumentSnapshot<UserData>;
 };
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+export const signInAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callBack) =>
+export const onAuthStateChangedListener = (callBack: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callBack);
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
       auth,
