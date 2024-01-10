@@ -14,7 +14,7 @@ export function withMatcher(actionCreator: Function) {
     return Object.assign(actionCreator, {
         type,
         match(action: UnknownAction){
-            return action.type == type;
+            return action.type === type;
         }
     })
 }
