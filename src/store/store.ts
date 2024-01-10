@@ -4,6 +4,7 @@ import {
   compose,
   legacy_createStore as createStore
 } from "redux";
+import logger from "redux-logger";
 import { PersistConfig, persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
@@ -33,6 +34,7 @@ const sagaMiddleware = createSagaMiddleware({ sagaMonitor: undefined });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleWares = [
+  logger as Middleware,
   sagaMiddleware as Middleware
 ];
 
