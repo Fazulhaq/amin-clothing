@@ -3,12 +3,13 @@ import {
   compose,
   legacy_createStore as createStore,
 } from "redux";
-import logger from "redux-logger";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import createSagaMiddleware from "redux-saga";
 import { rootReducer } from "./root-reducer";
 import { rootSaga } from "./root-saga";
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
   key: "root",
@@ -21,7 +22,7 @@ const sagaMiddleware = createSagaMiddleware();
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleWares = [
-  process.env.NODE_ENV !== "production" && logger,
+  process.env.NODE_ENV !== "production",
   sagaMiddleware,
 ].filter(Boolean);
 
