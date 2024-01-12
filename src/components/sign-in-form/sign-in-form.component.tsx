@@ -1,3 +1,4 @@
+import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { emailSignInStart, googleSignInStart } from "../../store/user/user.action";
@@ -27,11 +28,11 @@ const SignInForm = () => {
             dispatch(emailSignInStart(email, password));
             resetFields();
         }catch(error){
-            switch(error){
-                case "auth/invalid-login-credentials":
+            switch((error as AuthError).code){
+                case AuthErrorCodes.INVALID_APP_CREDENTIAL:
                     alert("Wrong email or password");
                     break;
-                case "auth/wrong-password":
+                case AuthErrorCodes.INVALID_PASSWORD:
                     alert("Incorrect password for this email");
                     break;
                 default:
