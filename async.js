@@ -1,20 +1,53 @@
-const multiply = (a, b) => a * b;
-const res = multiply(4, 5);
-console.log(res);
+// caching explained
 
-// curring concept explained
-const curriedMultiply = (a) => (b) => a * b;
-const curriedMultiplyBy6 = curriedMultiply(6);
-console.log("6 multiplication using curring function:");
-const res1 = curriedMultiplyBy6(3);
-const res2 = curriedMultiplyBy6(4);
-const res3 = curriedMultiplyBy6(5);
-const res4 = curriedMultiplyBy6(6);
+// function addTo80(n) {
+//   console.log("long time");
+//   return n + 80;
+// }
 
-console.log(res1);
-console.log(res2);
-console.log(res3);
-console.log(res4);
+// console.log(addTo80(5));
+// console.log(addTo80(5));
+// console.log(addTo80(5));
+// console.log(addTo80(5));
+
+let cache = {};
+
+function addTo80Caching(n) {
+  if (n in cache) {
+    return cache[n];
+  } else {
+    console.log("long time.");
+    cache[n] = n + 80;
+    return cache[n];
+  }
+}
+
+console.log(addTo80Caching(8));
+
+console.log("first: long time message will be shown");
+
+console.log(addTo80Caching(10));
+console.log(addTo80Caching(10));
+console.log(addTo80Caching(10));
+console.log(addTo80Caching(10));
+
+// const multiply = (a, b) => a * b;
+// const res = multiply(4, 5);
+// console.log(res);
+
+// // curring concept explained
+// const curriedMultiply = (a) => (b) => a * b;
+// const curriedMultiplyBy6 = curriedMultiply(6);
+// console.log("6 multiplication using curring function:");
+// const res1 = curriedMultiplyBy6(3);
+// const res2 = curriedMultiplyBy6(4);
+// const res3 = curriedMultiplyBy6(5);
+// const res4 = curriedMultiplyBy6(6);
+
+// console.log(res1);
+// console.log(res2);
+// console.log(res3);
+// console.log(res4);
 
 // ES6 classes in JavaScript
 // class Elf {
