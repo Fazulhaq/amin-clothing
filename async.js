@@ -51,6 +51,8 @@ myAsyncFunction();
 //   return n + 80;
 // }
 
+console.log("Hi github");
+
 // console.log(addTo80(5));
 // console.log(addTo80(5));
 // console.log(addTo80(5));
