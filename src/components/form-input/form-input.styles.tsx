@@ -10,7 +10,7 @@ const shrinkLabelStyles = css`
     color: ${mainColor};
 `;
 
-type FormInputLabelProps {
+type FormInputLabelProps = {
     shrink?: boolean;
 }
 
